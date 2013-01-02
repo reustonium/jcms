@@ -1,0 +1,9 @@
+{
+  // Required
+  "name": "JCMS",
+  "version": "0.1.0",
+  "manifest_version": 2,
+
+  // Recommended
+  "description": "CMS for JC"
+}
