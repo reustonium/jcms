@@ -3,7 +3,22 @@
   "name": "JCMS",
   "version": "0.1.0",
   "manifest_version": 2,
+  "permissions": ["contextMenus"],
 
-  // Recommended
-  "description": "CMS for JC"
+  "browser_action": {
+  	"default_icon": {                    // optional
+      "19": "icons/jc16.png",           // optional
+      "38": "icons/jc48.png"            // optional
+    },
+    "default_title": "Johnny Cheeseburger CMS"      // optional; shown in tooltip
+  },
+
+  "background": {
+    "scripts": ["scripts/context.js"]
+  },
+
+  "description": "CMS for JC",
+  "icons": { "16": "icons/jc16.png",
+           "48": "icons/jc48.png",
+          "128": "icons/jc128.png" }
 }
