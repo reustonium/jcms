@@ -1,0 +1,5 @@
+Johnny Cheeseburger Management System
+
+Version 0.1.0
+[NEW] Sends Image Source URL to mySQL Database
+[NEW] Sends Comment to mySQL Database
