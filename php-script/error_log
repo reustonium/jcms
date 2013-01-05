@@ -1,0 +1,71 @@
+[03-Jan-2013 11:53:00] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: Host 'box712.bluehost.com' is blocked because of many connection errors; unblock with 'mysqladmin flush-hosts' in /home2/aplinein/public_html/jcms/insert.php on line 2
+[03-Jan-2013 14:57:20] Invalid IPv6 configuration on server, Please disable or get native IPv6 on your server.
+[03-Jan-2013 14:57:20] PHP Warning:  curl_setopt() [<a href='function.curl-setopt'>function.curl-setopt</a>]: Invalid curl configuration option in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 965
+[03-Jan-2013 14:57:20] CurlException
+[03-Jan-2013 14:57:20] couldn't open file "http://profile.ak.fbcdn.net/hprofile-ak-snc7/371564_24402142_1633190279_q.jpg"
+
+[03-Jan-2013 14:57:35] Invalid IPv6 configuration on server, Please disable or get native IPv6 on your server.
+[03-Jan-2013 14:57:35] PHP Warning:  curl_setopt() [<a href='function.curl-setopt'>function.curl-setopt</a>]: Invalid curl configuration option in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 965
+[03-Jan-2013 14:57:35] CurlException
+[03-Jan-2013 14:57:35] couldn't open file "http://profile.ak.fbcdn.net/hprofile-ak-snc7/371564_24402142_1633190279_q.jpg"
+
+[03-Jan-2013 14:57:35] CSRF state token does not match one provided.
+[03-Jan-2013 14:58:14] Invalid IPv6 configuration on server, Please disable or get native IPv6 on your server.
+[03-Jan-2013 14:58:14] PHP Warning:  curl_setopt() [<a href='function.curl-setopt'>function.curl-setopt</a>]: Invalid curl configuration option in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 965
+[03-Jan-2013 14:58:15] CurlException
+[03-Jan-2013 14:58:15] couldn't open file "http://profile.ak.fbcdn.net/hprofile-ak-snc7/371564_24402142_1633190279_q.jpg"
+
+[03-Jan-2013 14:58:15] CSRF state token does not match one provided.
+[03-Jan-2013 14:58:25] Invalid IPv6 configuration on server, Please disable or get native IPv6 on your server.
+[03-Jan-2013 14:58:25] PHP Warning:  curl_setopt() [<a href='function.curl-setopt'>function.curl-setopt</a>]: Invalid curl configuration option in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 965
+[03-Jan-2013 14:58:25] CurlException
+[03-Jan-2013 14:58:25] couldn't open file "http://profile.ak.fbcdn.net/hprofile-ak-snc7/371564_24402142_1633190279_q.jpg"
+
+[03-Jan-2013 14:58:28] CurlException
+[03-Jan-2013 14:58:28] couldn't open file "http://profile.ak.fbcdn.net/hprofile-ak-snc7/371564_24402142_1633190279_q.jpg"
+
+[03-Jan-2013 14:58:31] Invalid IPv6 configuration on server, Please disable or get native IPv6 on your server.
+[03-Jan-2013 14:58:31] PHP Warning:  curl_setopt() [<a href='function.curl-setopt'>function.curl-setopt</a>]: Invalid curl configuration option in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 965
+[03-Jan-2013 14:58:31] CurlException
+[03-Jan-2013 14:58:31] couldn't open file "http://profile.ak.fbcdn.net/hprofile-ak-snc7/371564_24402142_1633190279_q.jpg"
+
+[03-Jan-2013 14:58:32] Invalid IPv6 configuration on server, Please disable or get native IPv6 on your server.
+[03-Jan-2013 14:58:32] PHP Warning:  curl_setopt() [<a href='function.curl-setopt'>function.curl-setopt</a>]: Invalid curl configuration option in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 965
+[03-Jan-2013 14:58:32] CurlException
+[03-Jan-2013 14:58:32] couldn't open file "http://profile.ak.fbcdn.net/hprofile-ak-snc7/371564_24402142_1633190279_q.jpg"
+
+[03-Jan-2013 14:58:38] Invalid IPv6 configuration on server, Please disable or get native IPv6 on your server.
+[03-Jan-2013 14:58:38] PHP Warning:  curl_setopt() [<a href='function.curl-setopt'>function.curl-setopt</a>]: Invalid curl configuration option in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 965
+[03-Jan-2013 14:58:38] CurlException
+[03-Jan-2013 14:58:38] couldn't open file "http://profile.ak.fbcdn.net/hprofile-ak-snc7/371564_24402142_1633190279_q.jpg"
+
+[03-Jan-2013 14:58:38] CSRF state token does not match one provided.
+[03-Jan-2013 15:00:07] Invalid IPv6 configuration on server, Please disable or get native IPv6 on your server.
+[03-Jan-2013 15:00:07] PHP Warning:  curl_setopt() [<a href='function.curl-setopt'>function.curl-setopt</a>]: Invalid curl configuration option in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 965
+[03-Jan-2013 15:00:07] CurlException
+[03-Jan-2013 15:00:07] couldn't open file "http://profile.ak.fbcdn.net/hprofile-ak-snc7/371564_24402142_1633190279_q.jpg"
+
+[03-Jan-2013 15:00:11] Invalid IPv6 configuration on server, Please disable or get native IPv6 on your server.
+[03-Jan-2013 15:00:11] PHP Warning:  curl_setopt() [<a href='function.curl-setopt'>function.curl-setopt</a>]: Invalid curl configuration option in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 965
+[03-Jan-2013 15:00:11] CurlException
+[03-Jan-2013 15:00:11] couldn't open file "http://profile.ak.fbcdn.net/hprofile-ak-snc7/371564_24402142_1633190279_q.jpg"
+
+[03-Jan-2013 15:00:11] CSRF state token does not match one provided.
+[03-Jan-2013 15:02:23] OAuthException
+[03-Jan-2013 15:02:23] (#100) Param url must be a string
+[03-Jan-2013 15:02:36] OAuthException
+[03-Jan-2013 15:02:36] (#100) Param url must be a string
+[03-Jan-2013 15:02:36] CSRF state token does not match one provided.
+[03-Jan-2013 15:03:37] OAuthException
+[03-Jan-2013 15:03:37] (#100) Param url must be a string
+[03-Jan-2013 15:03:40] OAuthException
+[03-Jan-2013 15:03:40] (#100) Param url must be a string
+[03-Jan-2013 15:03:40] CSRF state token does not match one provided.
+[03-Jan-2013 16:59:44] CSRF state token does not match one provided.
+[03-Jan-2013 17:35:01] PHP Warning:  parse_url(http://) [<a href='function.parse-url'>function.parse-url</a>]: Unable to parse URL in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 1190
+[03-Jan-2013 17:36:01] PHP Warning:  parse_url(http://) [<a href='function.parse-url'>function.parse-url</a>]: Unable to parse URL in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 1190
+[03-Jan-2013 17:37:02] PHP Warning:  parse_url(http://) [<a href='function.parse-url'>function.parse-url</a>]: Unable to parse URL in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 1190
+[03-Jan-2013 17:38:52] CSRF state token does not match one provided.
+[03-Jan-2013 17:45:01] PHP Warning:  parse_url(http://) [<a href='function.parse-url'>function.parse-url</a>]: Unable to parse URL in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 1190
+[03-Jan-2013 17:46:02] PHP Warning:  parse_url(http://) [<a href='function.parse-url'>function.parse-url</a>]: Unable to parse URL in /home2/aplinein/public_html/jcms/facebook-php-sdk/base_facebook.php on line 1190
+[03-Jan-2013 17:53:35] PHP Parse error:  syntax error, unexpected $end in /home2/aplinein/public_html/jcms/fetchToken.php on line 37
