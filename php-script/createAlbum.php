@@ -1,69 +1,53 @@
-<?
-  // Remember to copy files from the SDK's src/ directory to a
-  // directory in your application on the server, such as php-sdk/
-  require_once('facebook-php-sdk/facebook.php');
+<? 
+    $appId = '238552796278527';
+    $appSecret = '83f3fa6948e194c5da23ca7297df6d02';
+    $appUrl = 'http://alpineindie.com/jcms/createAlbum.php';
 
-  $config = array(
-    'appId' => '238552796278527',
-    'secret' => '83f3fa6948e194c5da23ca7297df6d02',
-    'fileUpload' => true,
-  );
-
-  $facebook = new Facebook($config);
-  $user_id = $facebook->getUser();
-
-  $photo = './pic.jpg'; // Path to the photo on the local filesystem
-  $photoURL = 'http://profile.ak.fbcdn.net/hprofile-ak-snc7/371564_24402142_1633190279_q.jpg';
-  $message = 'Photo upload via the PHP SDK!';
+    session_start();
 ?>
+
 <html>
   <head></head>
   <body>
+    <?
+       $code = $_REQUEST["code"];
 
-  <?
-    if($user_id) {
+         //Grab access code 
+         if(empty($code)) {
+           $_SESSION['state'] = md5(uniqid(rand(), TRUE)); // CSRF protection
+           $dialog_url = "https://www.facebook.com/dialog/oauth?client_id=" 
+             . $appId . "&redirect_uri=" . urlencode($appUrl) . "&state="
+             . $_SESSION['state'] . "&scope=user_birthday,read_stream";
 
-      // We have a user ID, so probably a logged in user.
-      // If not, we'll get an exception, which we handle below.
-      try {
+           echo("<script> top.location.href='" . $dialog_url . "'</script>");
+         }
 
-        // Upload to a user's profile. The photo will be in the
-        // first album in the profile. You can also upload to
-        // a specific album by using /ALBUM_ID as the path 
-        $ret_obj = $facebook->api('/me/photos', 'POST', array(
-                                         //'source' => '@' . $photo,
-        								 'url' => $photoURL,
-                                         'message' => $message,
-                                         )
-                                      );
-        echo '<pre>Photo ID: ' . $ret_obj['id'] . '</pre>';
+         // Verify CSFR Protection
+         if($_SESSION['state'] && ($_SESSION['state'] === $_REQUEST['state'])) {
+            $token_url = "https://graph.facebook.com/oauth/access_token?"
+            . "client_id=" . $appId . "&redirect_uri=" . urlencode($appUrl)
+            . "&client_secret=" . $appSecret . "&code=" . $code;
 
-      } catch(FacebookApiException $e) {
-        // If the user is logged out, you can have a 
-        // user ID even though the access token is invalid.
-        // In this case, we'll get an exception, so we'll
-        // just ask the user to login again here.
-        $login_url = $facebook->getLoginUrl( array(
-                       'scope' => 'photo_upload'
-                       )); 
-        echo 'Please <a href="' . $login_url . '">login.</a>';
-        error_log($e->getType());
-        error_log($e->getMessage());
-      }   
+            $response = file_get_contents($token_url);
+            $params = null;
+            parse_str($response, $params);
 
-      echo '<br /><a href="' . $facebook->getLogoutUrl() . '">logout</a>';
-    } else {
+            $_SESSION['access_token'] = $params['access_token'];
+            
+            $endOfLife = $params['expires'];
+            echo($endOfLife . '<br>');
 
-      // No user, print a link for the user to login
-      // To upload a photo to a user's wall, we need photo_upload  permission
-      // We'll use the current URL as the redirect_uri, so we don't
-      // need to specify it here.
-      $login_url = $facebook->getLoginUrl( array( 'scope' => 'photo_upload') );
-      echo 'Please <a href="' . $login_url . '">login.</a>';
+            $graph_url = "https://graph.facebook.com/me?access_token=" 
+            . $params['access_token'];
 
-    }
+            $user = json_decode(file_get_contents($graph_url));
+            echo("Hello " . $user->name);
 
-  ?>
+            // Add cURL Code or php-sdk method to call graph-api
 
+          } else {  
+            echo("The state does not match. You may be a victim of CSRF.");
+          }
+    ?>
   </body>
 </html>
