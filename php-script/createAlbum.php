@@ -1,9 +1,14 @@
 <? 
+    require_once('facebook-php-sdk/facebook.php');
     $appId = '238552796278527';
     $appSecret = '83f3fa6948e194c5da23ca7297df6d02';
     $appUrl = 'http://alpineindie.com/jcms/createAlbum.php';
 
     session_start();
+
+    $facebook = new Facebook(array(
+                                  'appId'=>$appId,
+                                  'secret'=>$appSecret));
 ?>
 
 <html>
@@ -23,7 +28,7 @@
          }
 
          // Verify CSFR Protection
-         if($_SESSION['state'] && ($_SESSION['state'] === $_REQUEST['state'])) {
+     //    if($_SESSION['state'] && ($_SESSION['state'] === $_REQUEST['state'])) {
             $token_url = "https://graph.facebook.com/oauth/access_token?"
             . "client_id=" . $appId . "&redirect_uri=" . urlencode($appUrl)
             . "&client_secret=" . $appSecret . "&code=" . $code;
@@ -32,10 +37,12 @@
             $params = null;
             parse_str($response, $params);
 
-            $_SESSION['access_token'] = $params['access_token'];
-            
+            $_SESSION['access_token'] = $params['access_token']; 
             $endOfLife = $params['expires'];
             echo($endOfLife . '<br>');
+
+            // Add cURL Code or php-sdk method to call graph-api
+            $facebook->setAccessToken($_SESSION['access_token']);
 
             $graph_url = "https://graph.facebook.com/me?access_token=" 
             . $params['access_token'];
@@ -43,11 +50,16 @@
             $user = json_decode(file_get_contents($graph_url));
             echo("Hello " . $user->name);
 
-            // Add cURL Code or php-sdk method to call graph-api
+            $ret_obj = $facebook->api('/me/feed', 'POST',
+                                    array(
+                                      'link' => 'www.example.com',
+                                      'message' => 'Posting with the PHP SDK!'
+                                 ));
+            echo '<br><pre>Post ID: ' . $ret_obj['id'] . '</pre>';
 
-          } else {  
-            echo("The state does not match. You may be a victim of CSRF.");
-          }
+       //   } else {  
+       //     echo("The state does not match. You may be a victim of CSRF.");
+       //   }
     ?>
   </body>
 </html>
