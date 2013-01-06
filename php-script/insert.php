@@ -14,8 +14,7 @@ VALUES
 if (!mysql_query($sql,$con))
   {
   die('Error: ' . mysql_error());
-  }
-echo "Successfully Added to the JC Queue";
+  } else{echo "Successfully Added to the JC Queue";}
 
 mysql_close($con);
 ?>
