@@ -7,7 +7,7 @@ if (!$con)
 
 mysql_select_db("aplinein_dailybread", $con);
 
-$sql="INSERT INTO test (url, comment)
+$sql="INSERT INTO daily_bread (url, comment)
 VALUES
 ('$_POST[url]','$_POST[comment]')";
 
