@@ -22,13 +22,13 @@
            $_SESSION['state'] = md5(uniqid(rand(), TRUE)); // CSRF protection
            $dialog_url = "https://www.facebook.com/dialog/oauth?client_id=" 
              . $appId . "&redirect_uri=" . urlencode($appUrl) . "&state="
-             . $_SESSION['state'] . "&scope=user_birthday,read_stream";
+             . $_SESSION['state'] . "&scope=manage_pages,publish_stream";
 
            echo("<script> top.location.href='" . $dialog_url . "'</script>");
          }
 
          // Verify CSFR Protection
-     //    if($_SESSION['state'] && ($_SESSION['state'] === $_REQUEST['state'])) {
+         if($_SESSION['state'] && ($_SESSION['state'] === $_REQUEST['state'])) {
             $token_url = "https://graph.facebook.com/oauth/access_token?"
             . "client_id=" . $appId . "&redirect_uri=" . urlencode($appUrl)
             . "&client_secret=" . $appSecret . "&code=" . $code;
@@ -37,18 +37,14 @@
             $params = null;
             parse_str($response, $params);
 
-            $_SESSION['access_token'] = $params['access_token']; 
-            $endOfLife = $params['expires'];
-            echo($endOfLife . '<br>');
-
             // Add cURL Code or php-sdk method to call graph-api
-            $facebook->setAccessToken($_SESSION['access_token']);
+            $facebook->setAccessToken($params['access_token']);
 
             $graph_url = "https://graph.facebook.com/me?access_token=" 
             . $params['access_token'];
 
             $user = json_decode(file_get_contents($graph_url));
-            echo("Hello " . $user->name);
+            echo("<br>Hello " . $user->name);
 
             $ret_obj = $facebook->api('/me/feed', 'POST',
                                     array(
@@ -57,9 +53,18 @@
                                  ));
             echo '<br><pre>Post ID: ' . $ret_obj['id'] . '</pre>';
 
-       //   } else {  
-       //     echo("The state does not match. You may be a victim of CSRF.");
-       //   }
+            $pages = $facebook->api('/me/accounts?fields=name,id','GET');
+
+            $pageID = $pages['data'][0]['id'];
+
+            $pageToken = $facebook->api('/'.$pageID.'?fields=access_token','GET');
+            $facebook->setAccessToken($pageToken['access_token']);
+            $newAlbumId = $facebook->api('/me/albums','POST', array('name'=>'fresh','description'=>'stuffz'));
+            $newPhoto = $facebook->api('/'.$newAlbumId['id'].'/photos','POST',array('url'=>'http://profile.ak.fbcdn.net/hprofile-ak-ash4/369308_502360721_167399057_q.jpg','name'=>'drewski'));
+ 
+          } else {  
+            echo("The state does not match. You may be a victim of CSRF.");
+          }
     ?>
   </body>
 </html>
