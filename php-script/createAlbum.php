@@ -1,9 +1,13 @@
-<? 
+<?php 
     require_once('facebook-php-sdk/facebook.php');
     $appId = '238552796278527';
     $appSecret = '83f3fa6948e194c5da23ca7297df6d02';
     $appUrl = 'http://alpineindie.com/jcms/createAlbum.php';
+    
+    // Application Variables
     $pageName = 'Reustonium';
+    $emailAddress = 'andrew.ruestow+jcms@gmail.com';
+    $emailSubject = 'Daily Bread Report';
 
     session_start();
 
@@ -22,7 +26,7 @@
 <html>
   <head></head>
   <body>
-    <?
+    <?php
        $code = $_REQUEST["code"];
 
          //Grab access code 
@@ -61,28 +65,36 @@
             $pageToken = $facebook->api('/'.$pageID.'?fields=access_token','GET');
             $facebook->setAccessToken($pageToken['access_token']);
             
-            // Create New Album
+            // Create New Album and update bread_history DB
             $album = $facebook->api('/me/albums','POST',array('name'=>'Cheeseburger Daily Bread '.date('F j, Y - H:i'), 'description'=>'Daily Bread'));
+            mysql_query("INSERT INTO bread_history (album_ID, date) VALUES (".$album['id'].",'".date('Y-m-d')."')");
             
-            // Add Photos and update DB
+            // Add Photos and update daily_bread DB
             $result = mysql_query("SELECT * FROM daily_bread WHERE album_ID IS NULL LIMIT 2");
             while($row = mysql_fetch_array($result))
             {
               echo "<br />";
               echo 'comment: '.$row['comment']. ' uid: '.$row['uid'];
-          
-              $photo = $facebook->api('/'.$album['id'].'/photos','POST',array('url'=>$row['url'],'name'=>$row['comment']));
+              
+              $photo = $facebook->api('/'.$album['id'].'/photos','POST',array('url'=>$row['url'],'name'=>$row['comment'],'no_story'=>'1'));
 
               // update DB
               mysql_query("UPDATE daily_bread SET album_ID='".$album['id']."' WHERE uid=".$row['uid']);
             } 
-
 
             // Create Post for Front Page
             $postInfo = $facebook->api('/'.$album['id'].'/?fields=link,name','GET');
             $post = $facebook->api('/me/feed','POST',array('link'=>$postInfo['link']));
 
             // Send email to JC
+            $queryData = mysql_query("SELECT COUNT(*) AS loafs FROM daily_bread WHERE album_ID is NULL");
+            $rowData = mysql_fetch_assoc($queryData);
+            $numBread = $rowData['loafs'];
+
+            echo $numBread;
+            $emailMessage = 'you have enough ingredients for '.$numBread.' moar loafs of bread';
+            $sentMail = mail($emailAddress,$emailSubject,$emailMessage);
+
           } else {  
             echo("The state does not match. You may be a victim of CSRF.");
           }
