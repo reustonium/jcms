@@ -39,7 +39,7 @@
            echo("<script> top.location.href='" . $dialog_url . "'</script>");
          }
 
-         // Verify CSFR Protection
+         // Verify CSFR Protection and main webapp functionality
          if($_SESSION['state'] && ($_SESSION['state'] === $_REQUEST['state'])) {
             $token_url = "https://graph.facebook.com/oauth/access_token?"
             . "client_id=" . $appId . "&redirect_uri=" . urlencode($appUrl)
@@ -61,7 +61,7 @@
               } else {echo('no page match');}
             }
            
-            // Update the Access Token for the Page
+            // Update the Access Token to gain permission for the Page
             $pageToken = $facebook->api('/'.$pageID.'?fields=access_token','GET');
             $facebook->setAccessToken($pageToken['access_token']);
             
@@ -72,10 +72,8 @@
             // Add Photos and update daily_bread DB
             $result = mysql_query("SELECT * FROM daily_bread WHERE album_ID IS NULL LIMIT 2");
             while($row = mysql_fetch_array($result))
-            {
-              echo "<br />";
-              echo 'comment: '.$row['comment']. ' uid: '.$row['uid'];
-              
+            {              
+              // Upload photo to album
               $photo = $facebook->api('/'.$album['id'].'/photos','POST',array('url'=>$row['url'],'name'=>$row['comment'],'no_story'=>'1'));
 
               // update DB
@@ -84,15 +82,14 @@
 
             // Create Post for Front Page
             $postInfo = $facebook->api('/'.$album['id'].'/?fields=link,name','GET');
-            $post = $facebook->api('/me/feed','POST',array('link'=>$postInfo['link']));
+            $post = $facebook->api('/me/feed','POST',array('link'=>$postInfo['link'],'description'=>'Daily Bread'));
 
             // Send email to JC
             $queryData = mysql_query("SELECT COUNT(*) AS loafs FROM daily_bread WHERE album_ID is NULL");
             $rowData = mysql_fetch_assoc($queryData);
             $numBread = $rowData['loafs'];
 
-            echo $numBread;
-            $emailMessage = 'you have enough ingredients for '.$numBread.' moar loafs of bread';
+            $emailMessage = 'you have enough bread for '.floor($numBread/5).' moar days. Without more bread your fans will starve on: '.date("F j, Y", strtotime("+".(floor($numBread/5)+1)."day"));
             $sentMail = mail($emailAddress,$emailSubject,$emailMessage);
 
           } else {  
