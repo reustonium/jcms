@@ -14,13 +14,6 @@
     $facebook = new Facebook(array(
                                   'appId'=>$appId,
                                   'secret'=>$appSecret));
-
-    // mySQL Connection
-    $con = mysql_connect("localhost:3306","aplinein_jc","pizzacake");
-    if (!$con){
-      die('Could not connect: ' . mysql_error());
-    }
-    mysql_select_db("aplinein_dailybread", $con);
 ?>
 
 <html>
@@ -64,6 +57,13 @@
             // Update the Access Token to gain permission for the Page
             $pageToken = $facebook->api('/'.$pageID.'?fields=access_token','GET');
             $facebook->setAccessToken($pageToken['access_token']);
+
+            // mySQL Connection
+            $con = mysql_connect("localhost:3306","aplinein_jc","pizzacake");
+            if (!$con){
+              die('Could not connect: ' . mysql_error());
+            }
+            mysql_select_db("aplinein_dailybread", $con);
             
             // Create New Album and update bread_history DB
             $album = $facebook->api('/me/albums','POST',array('name'=>'Cheeseburger Daily Bread '.date('F j, Y - H:i'), 'description'=>'Daily Bread'));
@@ -92,11 +92,11 @@
             $emailMessage = 'you have enough bread for '.floor($numBread/5).' moar days. Without more bread your fans will starve on: '.date("F j, Y", strtotime("+".(floor($numBread/5)+1)."day"));
             $sentMail = mail($emailAddress,$emailSubject,$emailMessage);
 
+            mysql_close($con);
+
           } else {  
             echo("The state does not match. You may be a victim of CSRF.");
           }
-
-          mysql_close($con);
     ?>
   </body>
 </html>
