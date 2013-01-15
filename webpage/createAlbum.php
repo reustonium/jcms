@@ -18,7 +18,9 @@
     <?php
        $code = $_REQUEST["code"];
 
-         //Grab access code 
+         //Grab access code  
+         //TODO create php class for handling Facebook Auth
+
          if(empty($code)) {
            $_SESSION['state'] = md5(uniqid(rand(), TRUE)); // CSRF protection
            $dialog_url = "https://www.facebook.com/dialog/oauth?client_id=" 
