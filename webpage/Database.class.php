@@ -27,6 +27,33 @@
 			return $retval;
 		}
 
+		//////////////////////////////////
+		// Get next n photos for the Album
+		//////////////////////////////////
+		function GetAlbumPhotos($numPhotos){
+			
+			$this -> Connect();
+
+			// Create the Query String
+			$query = "SELECT * FROM daily_bread WHERE album_ID IS NULL LIMIT ".$numPhotos;
+
+			// Execute the Query
+			$results = $this -> Query($query);
+
+			// Create the return Array
+			$retval = array();
+
+			// decode the rows
+			while($r = mysql_fetch_assoc($results)) {
+
+				// assign the values 
+				$retval[]=$r;
+			}
+
+			// Return Val
+			return $retval;
+		}
+
 		////////////////////
 		// Connect to the DB
 		////////////////////
