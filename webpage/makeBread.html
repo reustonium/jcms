@@ -17,28 +17,34 @@
   </head>
 
   <body>
+    <?php
+        include_once("Database.class.php")
+
+        // Create DB object
+        $db = new Database();
+    ?>
 
     <div class="container-narrow">
 
-      <h1>Johnny Cheeseburger's Daily Bread Factory</h1>
+        <h1>Johnny Cheeseburger's Daily Bread Factory</h1>
 
-      <hr>
+        <hr>
 
-      <div class="jumbotron">
-        <h2>Fresh Bread!</h2>
-        <p class="lead">Clicking on the BAKE BREAD button will create a new 'Daily Bread' album and upload the next 5 images.</p>
-        <br>
-        <div class="alert">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <strong>Fact Check:</strong> You have enough ingredients for 5 more days of bread!
+        <div class="jumbotron">
+          <h2>Fresh Bread!</h2>
+          <p class="lead">Clicking on the BAKE BREAD button will create a new 'Daily Bread' album and upload the next 5 images.</p>
+          <br>
+          <div class="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Fact Check:</strong> You have enough ingredients for 5 more days of bread!
+          </div>
+          <a class="btn btn-large btn-success" href="">BAKE BREAD</a>
+
         </div>
-        <a class="btn btn-large btn-success" href="">BAKE BREAD</a>
 
-      </div>
-
-      <div class="footer">
-        <p>&copy; Reustonium 2012</p>
-      </div>
+        <div class="footer">
+          <p>&copy; Reustonium 2012</p>
+        </div>
 
     </div> <!-- /container -->
 

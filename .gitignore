@@ -2,6 +2,8 @@
 ## Eclipse
 #################
 
+sql_credentials.php
+
 *.pydevproject
 .project
 .metadata
