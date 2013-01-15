@@ -1,19 +1,15 @@
 <?php 
     require_once('facebook-php-sdk/facebook.php');
-    $appId = '238552796278527';
-    $appSecret = '83f3fa6948e194c5da23ca7297df6d02';
-    $appUrl = 'http://alpineindie.com/jcms/createAlbum.php';
-    
-    // Application Variables
-    $pageName = 'Reustonium';
-    $emailAddress = 'andrew.ruestow+jcms@gmail.com';
-    $emailSubject = 'Daily Bread Report';
+    require_once('facebook_credentials.php');
+    require_once('application_variables.php');
+ 
+    $appUrl = 'http://alpineindie.com/jcms/webpage/createAlbum.php';
 
     session_start();
 
     $facebook = new Facebook(array(
-                                  'appId'=>$appId,
-                                  'secret'=>$appSecret));
+                                  'appId'=>APPID,
+                                  'secret'=>APPSECRET));
 ?>
 
 <html>
@@ -26,7 +22,7 @@
          if(empty($code)) {
            $_SESSION['state'] = md5(uniqid(rand(), TRUE)); // CSRF protection
            $dialog_url = "https://www.facebook.com/dialog/oauth?client_id=" 
-             . $appId . "&redirect_uri=" . urlencode($appUrl) . "&state="
+             . APPID . "&redirect_uri=" . urlencode($appUrl) . "&state="
              . $_SESSION['state'] . "&scope=manage_pages,publish_stream";
 
            echo("<script> top.location.href='" . $dialog_url . "'</script>");
@@ -35,8 +31,8 @@
          // Verify CSFR Protection and main webapp functionality
          if($_SESSION['state'] && ($_SESSION['state'] === $_REQUEST['state'])) {
             $token_url = "https://graph.facebook.com/oauth/access_token?"
-            . "client_id=" . $appId . "&redirect_uri=" . urlencode($appUrl)
-            . "&client_secret=" . $appSecret . "&code=" . $code;
+            . "client_id=" . APPID . "&redirect_uri=" . urlencode($appUrl)
+            . "&client_secret=" . APPSECRET . "&code=" . $code;
 
             $response = file_get_contents($token_url);
             $params = null;
@@ -48,7 +44,7 @@
 
             // Find the ID for the proper page
             foreach($pages['data'] as $page){
-              if ($page['name']==$pageName){
+              if ($page['name']== PAGENAME){
                 echo($page['name'].'<br>'.$page['id']);
                 $pageID = $page['id'];
               } else {echo('no page match');}
@@ -59,6 +55,7 @@
             $facebook->setAccessToken($pageToken['access_token']);
 
             // mySQL Connection
+            // TODO replace with instatiation of Database Class
             $con = mysql_connect("localhost:3306","aplinein_jc","pizzacake");
             if (!$con){
               die('Could not connect: ' . mysql_error());
