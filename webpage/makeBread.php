@@ -61,9 +61,9 @@
               if ($page['name']== PAGENAME){
                 // echo($page['name'].'<br>'.$page['id']);
                 $pageID = $page['id'];
-              } else {echo('no page match');}
+              } else {}
             }
-           
+            
             // Update the Access Token to gain permission for the Page
             $pageToken = $facebook->api('/'.$pageID.'?fields=access_token','GET');
             $facebook->setAccessToken($pageToken['access_token']);
