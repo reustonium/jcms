@@ -2,6 +2,9 @@
 ## Eclipse
 #################
 
+sql_credentials.php
+facebook_credentials.php
+
 *.pydevproject
 .project
 .metadata
