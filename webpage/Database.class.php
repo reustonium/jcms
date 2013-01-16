@@ -74,6 +74,8 @@
 		//////////////////////
 		function Query($query)
 		{
+			$this->Connect();
+			
 			// pull from DB
 			$result = mysql_db_query(MYSQL_DATABASE, $query)
 				or die("Failed Query of " . $query);  			// TODO: something more elegant than this
