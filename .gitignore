@@ -2,6 +2,7 @@
 ## Eclipse
 #################
 
+application_variables.php
 sql_credentials.php
 facebook_credentials.php
 
