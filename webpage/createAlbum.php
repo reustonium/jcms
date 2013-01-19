@@ -13,7 +13,10 @@
     $db->Query("INSERT INTO bread_history (album_ID, date) VALUES (".$album['id'].",'".date('Y-m-d')."')");
     
     // Add Photos and update daily_bread DB
-    $result = $db->GetAlbumPhotos(10);
+    $phototool = new PhotoTool();
+	$result = $phototool->GetAlbumPhotos(10);
+	
+	//$result = $db->GetAlbumPhotos(10);
 
     foreach($result as $row)
     {              
