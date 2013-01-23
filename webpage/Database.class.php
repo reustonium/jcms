@@ -82,6 +82,17 @@
 
 			return $result;
 		}
+
+		//////////////////////////
+		// Check for Duplicate URL
+		//////////////////////////
+		function IsUrlDup($url)
+		{
+			$this->Connect();
+
+			//
+			return false;
+		}
 	}
 
 ?>

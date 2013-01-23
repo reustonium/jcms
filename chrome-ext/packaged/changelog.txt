@@ -1,5 +1,9 @@
 Johnny Cheeseburger Management System
 
+Version 0.3.0
+[NEW] Adds field for Prioritizing Posts
+[FIX] Utilizes Database.class.php for cleaner mySQL interface
+
 Version 0.2.0
 [UPDATED] Added new JCMS mySQL Table
 [FIX] Set form focus to 'comment' field

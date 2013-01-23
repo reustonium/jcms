@@ -1,20 +1,30 @@
 <?php
-$con = mysql_connect("localhost:3306","aplinein_jc","pizzacake");
-if (!$con)
-  {
-  die('Could not connect: ' . mysql_error());
-  }
+require_once('webpage/Database.class.php');
 
-mysql_select_db("aplinein_dailybread", $con);
+// Database Connection
+$db = new Database();
 
-$sql="INSERT INTO daily_bread (url, comment)
-VALUES
-('$_POST[url]','$_POST[comment]')";
+// Check for Duplicate Entry
+if($db->IsUrlDup($_POST[url])){
+	echo('This image is already in the queue');
+} else{
+	// Convert Checkbox to int 0=off, 1=on
+	if($_POST[priority]=='on'){
+		$prioritize=1;
+	} else {
+		$prioritize = 0;
+	}
+	// Create query
 
-if (!mysql_query($sql,$con))
-  {
-  die('Error: ' . mysql_error());
-  } else{echo "Successfully Added to the JC Queue";}
+	$query = "INSERT INTO daily_bread (url, comment, priority) VALUES ('$_POST[url]','$_POST[comment]','".$prioritize."')";
+	
+	// Execute Query
+	$db->Query($query);
 
-mysql_close($con);
+	echo $query;
+	
+	// Create HTML
+	//echo('Successfully Added to the Queue!');
+}
+
 ?>
