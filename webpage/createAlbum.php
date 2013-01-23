@@ -9,11 +9,14 @@
     $facebook = $_SESSION['facebook'];
     
     // Create New Album and update bread_history DB
-    $album = $facebook->api('/me/albums','POST',array('name'=>'Cheeseburger Daily Bread '.date('F j, Y - H:i'), 'description'=>'Daily Bread'));
+    $album = $facebook->api('/me/albums','POST',array('name'=>'Cheeseburger Daily Bread '.date('F j, Y'), 'description'=>'Daily Bread'));
     $db->Query("INSERT INTO bread_history (album_ID, date) VALUES (".$album['id'].",'".date('Y-m-d')."')");
     
     // Add Photos and update daily_bread DB
-    $result = $db->GetAlbumPhotos(3);
+    $phototool = new PhotoTool();
+	$result = $phototool->GetAlbumPhotos(10);
+	
+	//$result = $db->GetAlbumPhotos(10);
 
     foreach($result as $row)
     {              

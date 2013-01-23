@@ -1,57 +1,19 @@
 <?php
 	require_once("sql_credentials.php");
 
-	Class Database{
+	Class Database
+	{
 
-		/////////////////////////////////////////
-		// Get the number of new photos in the DB
-		/////////////////////////////////////////
-		function CountNewPhotos(){
-
-			$this -> Connect();
-
-			// Create the Query String
-			$query = "SELECT COUNT(*) AS loafs FROM ".MYSQL_TABLE." WHERE album_ID is NULL";
-
-			// Execute the Query
-			$results = $this -> Query($query);
-
-			// Create the return value
-			$retval = 0;
-
-			// Get number of new photos in the DB
-			$rowData = mysql_fetch_assoc($results);
-			$retval = $rowData['loafs'];
-
-			// Return Val
-			return $retval;
-		}
-
-		//////////////////////////////////
-		// Get next n photos for the Album
-		//////////////////////////////////
-		function GetAlbumPhotos($numPhotos){
+		////////////////////
+		// Sanitize DB Input
+		////////////////////
+		function SanitizeInput($input)
+		{
+			// first ensure there are escape chars
+			$retVal = mysql_real_escape_string($input);
 			
-			$this -> Connect();
-
-			// Create the Query String
-			$query = "SELECT * FROM daily_bread WHERE album_ID IS NULL LIMIT ".$numPhotos;
-
-			// Execute the Query
-			$results = $this -> Query($query);
-
-			// Create the return Array
-			$retval = array();
-
-			// decode the rows
-			while($r = mysql_fetch_assoc($results)) {
-
-				// assign the values 
-				$retval[]=$r;
-			}
-
-			// Return Val
-			return $retval;
+			// return the sanitized string
+			return $retVal;
 		}
 
 		////////////////////
@@ -63,6 +25,7 @@
 			$chandle = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS)
 				or die("Connection Failure to Database");			
 
+			// select the specified DB from the mysql instance
 			mysql_select_db(MYSQL_DATABASE, $chandle)
 				or die ("Could not find (" . MYSQL_DATABASE . ") database.");	
 
@@ -74,7 +37,6 @@
 		//////////////////////
 		function Query($query)
 		{
-			$this->Connect();
 			
 			// pull from DB
 			$result = mysql_db_query(MYSQL_DATABASE, $query)

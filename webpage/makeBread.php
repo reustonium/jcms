@@ -61,17 +61,20 @@
               if ($page['name']== PAGENAME){
                 // echo($page['name'].'<br>'.$page['id']);
                 $pageID = $page['id'];
-              } else {echo('no page match');}
+              } else {}
             }
-           
+            
             // Update the Access Token to gain permission for the Page
             $pageToken = $facebook->api('/'.$pageID.'?fields=access_token','GET');
             $facebook->setAccessToken($pageToken['access_token']);
 
             // mySQL Connection
-            $db = new Database();
+            //$db = new Database();
+            //$bread = $db->CountNewPhotos();
 
-            $bread = $db->CountNewPhotos();
+			// get new phot count from db
+			$phototool = new PhotoTool();
+			$bread = $phototool->CountNewPhotos();
 
             // Save DB and Facebook as SESSION variables for use in the createAlbum.php script
             $_SESSION['db'] = $db;
