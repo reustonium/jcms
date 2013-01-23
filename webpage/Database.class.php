@@ -90,8 +90,24 @@
 		{
 			$this->Connect();
 
-			//
-			return false;
+			// Initialize number of Duplicates
+			$numDup = 0;
+
+			// Get all URLs of queued posts
+			$query = "SELECT url FROM daily_bread WHERE album_ID IS NULL";
+			$result = $this->Query($query);
+
+			while($r = mysql_fetch_assoc($result)) {
+				if($r['url']==$url){
+					$numDup++;
+				}
+			}
+
+			if ($numDup>0){
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 

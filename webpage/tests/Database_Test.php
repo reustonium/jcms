@@ -25,5 +25,16 @@ Test for GetAlbumPhotos($numPhotos)
 		echo('<hr>');
 	}
 ?>
+<br>
+<?php
+	echo ("test yes this is a dup: ");
+	$isdup = $db->IsUrlDup('test');
+	echo $isdup;
+
+	echo ('<br>');
+	echo ("dog NO this is NOT a dup: ");
+	$isdup = $db->IsUrlDup('dog');
+	echo $isdup;
+?>
 </body>
 </html>
