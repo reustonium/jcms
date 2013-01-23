@@ -69,12 +69,9 @@
             $facebook->setAccessToken($pageToken['access_token']);
 
             // mySQL Connection
-            //$db = new Database();
-            //$bread = $db->CountNewPhotos();
+            $db = new Database();
 
-			// get new phot count from db
-			$phototool = new PhotoTool();
-			$bread = $phototool->CountNewPhotos();
+            $bread = $db->CountNewPhotos();
 
             // Save DB and Facebook as SESSION variables for use in the createAlbum.php script
             $_SESSION['db'] = $db;
