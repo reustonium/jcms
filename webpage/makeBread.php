@@ -13,6 +13,7 @@
                                   'secret'=>APPSECRET));
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -84,28 +85,41 @@
 
     <div class="container-narrow">
 
-        <h1>Johnny Cheeseburger's Daily Bread Factory</h1>
+        <div class="hero-unit">
+          <h1>Johnny Cheeseburger's Daily Bread Factory</h1>
+          <hr>
 
-        <hr>
-
-        <div class="jumbotron">
-          <h2>Fresh Bread!</h2>
-          <p class="lead">Clicking on the BAKE BREAD button will create a new 'Daily Bread' album and upload the next 5 images.</p>
-          <br>
           <div class="alert">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Fact Check:</strong> You currently have <?php echo($bread); ?> unused photos in the database!
+            You currently have <?php echo($bread); ?> unused photos in the database!
           </div>
           <form action="createAlbum.php" method="get">
-            <button class="btn btn-large btn-success" type="submit">BAKE BREAD</button>
+            <fieldset>
+              <legend>Configure Bread</legend>
+
+              <label>Album Title</label>
+              <input class="input-large" type="text" name="title" placeholder="Daily Bread <?php echo(date('F j, Y'));?>"/>
+
+              <label>Number of Photos to Add</label>
+              <select name="numPhotos">
+                <option>5</option>
+                <option>10</option>
+                <option>15</option>
+                <option>20</option>
+              </select>
+              
+              <br>
+              <button class="btn btn-large btn-success" type="submit">BAKE BREAD</button>
+            </fieldset>
           </form>
         </div>
+
 
         <div class="footer">
           <p>&copy; Reustonium 2012</p>
         </div>
 
-    </div> <!-- /container -->
+    </div> <!-- container -->
 
     <!-- javascript
     ================================================== -->
