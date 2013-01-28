@@ -35,7 +35,7 @@
 			$this -> Connect();
 
 			// Create the Query String
-			$query = "SELECT * FROM daily_bread WHERE album_ID IS NULL LIMIT ".$numPhotos;
+			$query = "SELECT * FROM daily_bread WHERE album_ID IS NULL ORDER BY priority DESC LIMIT ".$numPhotos;
 
 			// Execute the Query
 			$results = $this -> Query($query);
