@@ -112,6 +112,12 @@
               <button class="btn btn-large btn-success" type="submit">BAKE BREAD</button>
             </fieldset>
           </form>
+          <h3>Generate Fan Statistics</h3>
+          <p>This button will generate statistics for all of your fans and provide a ranking.</p>
+          <form action="FanScraper.php" method="get">
+              <button class="btn btn-large btn-success" type="submit">Generate Fan Stats</button>
+              <em>THIS FEATURE IS CURRENTLY DISABLED</em>
+          </form>
         </div>
 
 

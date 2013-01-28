@@ -109,6 +109,17 @@
 				return false;
 			}
 		}
+
+		///////////////////////////////////
+		// Update Photo-Likes for Fan Stats
+		///////////////////////////////////
+		function AddPhotoLike($fb_id){
+			$this->Connect();
+
+			// Insert Query for new user
+			$query = "INSERT INTO fan_201301 (facebook_id, photo_likes) VALUES (".$fb_id.",1)";
+			$this->Query($query);
+		}
 	}
 
 ?>
