@@ -36,5 +36,27 @@ Test for GetAlbumPhotos($numPhotos)
 	$isdup = $db->IsUrlDup('dog');
 	echo $isdup;
 ?>
+<hr>
+<h1>new user test</h1>
+<?php
+	$newU = $db->isNewUser(100);
+	echo $newU;
+?>
+
+<h1>addStat Test</h1>
+<?php
+	$db->AddStats('100','photo_likes');
+	$db->AddStats('101','photo_comments');
+	$db->AddStats('101','album_likes');
+?>
+
+<h1>Get AlbumID Test</h1>
+<?php
+	$aid = $db->GetAlbumIDs();
+	echo $aid;
+	foreach($aid as $a){
+		echo ($a.'<br>');
+	}
+?>
 </body>
 </html>

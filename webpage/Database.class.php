@@ -111,14 +111,65 @@
 		}
 
 		///////////////////////////////////
-		// Update Photo-Likes for Fan Stats
+		// Update  Fan Stats
 		///////////////////////////////////
-		function AddPhotoLike($fb_id){
+		function AddStats($fb_id, $field){
 			$this->Connect();
 
-			// Insert Query for new user
-			$query = "INSERT INTO fan_201301 (facebook_id, photo_likes) VALUES (".$fb_id.",1)";
+			// Check for New User ID
+			if($this->isNewUser($fb_id) == 'true'){
+				$query = "INSERT INTO fan_201301 (facebook_id, ".$field.") VALUES (".$fb_id.",1)";
+			} else {
+				$query = "UPDATE fan_201301 SET ".$field."=".$field."+1 WHERE facebook_id=".$fb_id;
+			}
+			
 			$this->Query($query);
+		}
+
+		////////////////////
+		// Clear Stats Table
+		////////////////////
+		function ClearTable($tableName){
+			$this->Connect();
+
+			$query = "DELETE FROM ".$tableName." WHERE facebook_id IS NOT NULL;";
+			$this->Query($query);
+		}
+
+		function isNewUser($fid){
+			$this->Connect();
+
+			$query = "SELECT * FROM fan_201301 WHERE facebook_id = ".$fid;
+			$result = $this->Query($query);
+
+			$r = mysql_fetch_assoc($result);
+
+			if($r){return 'false';}
+			else{return 'true';}
+		}
+
+		////////////////
+		// Get Album_IDs
+		////////////////
+		function GetAlbumIDs(){
+			$this->Connect();
+
+			$query = "SELECT album_ID FROM bread_history";
+			$result = $this->Query($query);
+
+			// Create the return Array
+			$retval = array();
+
+			// decode the rows
+			while($r = mysql_fetch_assoc($result)) {
+
+				// assign the values 
+				$retval[]=$r;
+			}
+
+			// Return Val
+			return $retval;
+
 		}
 	}
 

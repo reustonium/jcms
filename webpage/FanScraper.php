@@ -9,18 +9,65 @@
     $facebook = $_SESSION['facebook'];
 
     /**
+     * Clear Stats Table
+     */
+    $db->ClearTable('fan_201301');
+
+    /**
      * @TODO Run Once per Album in aplinein_dailybread.bread_history by album_ID
      */
 
-    /**
-     * @TODO For each album_ID parse for comments, likes, shares
-     */
+    $albums = $db->GetAlbumIDs();
+    foreach($albums as $album_ID){
+    
+    $album = $facebook->api($album_ID['album_ID'].'?fields=comments,likes,sharedposts,photos.fields(comments,likes,sharedposts)','GET');
 
-    /**
-     * @TODO for each photo in Album parse for coments, likes, shares
-     */
-    $album_ID = '476923245697150';
-    $album = $facebook->api($album_ID.'?fields=name,photos.fields(likes,name)','GET');
+            /**
+             * @TODO For each album_ID parse for comments, likes, shares
+             */
+            if($album['comments']){
+                foreach($album['comments']['data'] as $albumComments){
+                    $db->AddStats($albumComments['from']['id'], 'album_comments');
+                }
+            }
+
+            if($album['likes']){
+                foreach($album['likes']['data'] as $albumLikes){
+                    $db->AddStats($albumLikes['id'], 'album_likes');
+                }
+            }
+
+            if($album['sharedposts']){
+                foreach($album['sharedposts']['data'] as $albumSharedPosts){
+                    $db->AddStats($albumSharedPosts['from']['id'], 'album_shares');
+                }
+            }
+
+            /**
+             * @TODO for each photo in Album parse for coments, likes, shares
+             */
+            if($album['photos']){
+                foreach($album['photos']['data'] as $photos){
+                    if($photos['comments']){
+                        foreach($photos['comments']['data'] as $photoComment){
+                            $db->AddStats($photoComment['from']['id'], 'photo_comments');
+                        }
+                    }
+
+                    if($photos['likes']){
+                        foreach($photos['likes']['data'] as $photoLikes){
+                            $db->AddStats($photoLikes['id'], 'photo_likes');
+                        }
+                    }
+
+                    if($photos['sharedposts']){
+                        foreach($photos['sharedposts']['data'] as $photoSharedPosts){
+                            $db->AddStats($photoSharedPosts['from']['id'], 'photo_shares');
+                        }
+                    }
+                }
+            }
+        }
 ?>
 
 <!DOCTYPE html>
@@ -40,24 +87,11 @@
 	    <script src="js/jquery-1.8.3.min.js"></script>
   	</head>
   	<body>
-  		<?php 
-  			echo $album['name']; 
-  			echo ('<hr>');
 
-  			foreach($album['photos']['data'] as $photo){
-  				echo $photo['name'];
-  				echo ('<ul>');
+    <?php
+        
 
-  				foreach($photo['likes']['data'] as $likes){
-  					echo ('<li>'.$likes['name']);	
-  					$db->AddPhotoLike($likes['id']);			
-  				}
-  				echo ('</ul>');
-  			}
-
-  		?>
-  
-
+    ?>
 
   	<!-- javascript
     ================================================== -->
