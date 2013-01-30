@@ -1,4 +1,11 @@
-<?php 
+<?php
+    /**
+     * @package Default
+     * 
+     * Main Page for configuring and creating Albums with Photos
+     * 
+     * @author Reustonium
+     */
     require_once('facebook-php-sdk/facebook.php');
     require_once('facebook_credentials.php');
     require_once('application_variables.php');

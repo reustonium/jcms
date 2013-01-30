@@ -1,4 +1,12 @@
 <?php
+    /**
+     * Update Fan Statistics Database
+     * 
+     * @package Default
+     * 
+     * @author Reustonium 
+     */
+
     require_once('facebook-php-sdk/facebook.php');
     require_once('Database.class.php');
 
@@ -14,7 +22,8 @@
     $db->ClearTable('fan_201301');
 
     /**
-     * @TODO Run Once per Album in aplinein_dailybread.bread_history by album_ID
+     * TODO Logic to Create New Table for each month
+     * TODO Logic to Add Stats to proper table 
      */
 
     $albums = $db->GetAlbumIDs();
@@ -22,9 +31,6 @@
     
     $album = $facebook->api($album_ID['album_ID'].'?fields=comments,likes,sharedposts,photos.fields(comments,likes,sharedposts)','GET');
 
-            /**
-             * @TODO For each album_ID parse for comments, likes, shares
-             */
             if($album['comments']){
                 foreach($album['comments']['data'] as $albumComments){
                     $db->AddStats($albumComments['from']['id'], 'album_comments');

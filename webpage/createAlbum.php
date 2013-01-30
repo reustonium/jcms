@@ -1,4 +1,19 @@
 <?php 
+    /**
+     * Creates a Facebook Album with Photos
+     * 
+     * 
+     * 
+     * 
+     * 
+     * This script takes $_SESSION variables set in makeBread.php and uses the
+     * Facebook Graph API to create an album on a Fan Page, and upload a set
+     * number of photos to that album.  The photos come from a mySQL database and 
+     * include the photo url and comment to accompany the photo.
+     * 
+     * @package Default
+     * @author Reustonium
+     */
     require_once('facebook-php-sdk/facebook.php');
     require_once('Database.class.php');
 
